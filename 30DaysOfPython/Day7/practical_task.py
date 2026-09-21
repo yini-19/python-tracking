@@ -12,7 +12,7 @@ Products = []
 Total = []
 date_time = datetime.now()
 
-def purchase_details() -> float:
+def purchase_details():
         product = input("What product are you purchasing: ")
         Products.append(product)
         price = validate_quantity(input("Input price: "))
@@ -21,8 +21,7 @@ def purchase_details() -> float:
         Total.append(total)
         add_purchase = input("Do you want to make another purchase (yes/no): ")
         
-
-
+        
 
 def generate_reciept():
         return f"""
@@ -34,7 +33,8 @@ def generate_reciept():
         Total Purchase: {sum(Total)}
         =======================
         """
-print(generate_reciept())
+
 
 while True:
-    
+    purchase_details()
+    generate_reciept()

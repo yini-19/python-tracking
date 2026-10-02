@@ -37,36 +37,34 @@ app = FastAPI()
 
 next_id = 1
 
-tasks = {
-  id: {"task_id": next_id, "title": Title, "Details": Description, "done": Done},
-}
+tasks = {}
 
 @app.get("/tasks")
 def all_tasks():
-  return tasks
+  return list(tasks.values())
 
 @app.get("/tasks/{task_id}")
-def one_task():
-  return tasks["ID"]
+def one_task(task_id):
+  return tasks[task_id]
 
 @app.post("/tasks")
-def new_task():
-  id = next_id 
-  Title = input("Give task a title: ")
-  Description = input("what are the tasks details: ")
+def new_task(Title: str, Description: str):
+  global next_id
   Done = False
+  tasks[next_id] = {"task_id": next_id, "title": Title, "Details": Description, "done": Done}
   next_id += 1
-  return tasks
+  return tasks[next_id]
 
-@app.get("/tasks/{task_id}")
-def edit_task(id):
-  id = next_id
+@app.put("/tasks/{task_id}")
+def edit_task(task_id: int, Title: str, Description: str):
+  
+  tasks[task_id] ={"task_id": task_id, "title": Title, "Details": Description, "done": tasks[task_id]["done"]}
+  return tasks[task_id]
 
-  tasks[id] ={"task_id": id, "title": input("Give task a title: "), "Details": input("what are the tasks details: "), "done": False}
-  return tasks["ID"]
-
-@app.get("/tasks/{task_id}")
-def delete_task():
+@app.delete("/tasks/{task_id}")
+def delete_task(task_id):
+  del tasks[task_id]
+  return tasks[task_id]
 
 
 ```

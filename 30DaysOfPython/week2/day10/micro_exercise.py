@@ -10,9 +10,9 @@ tasks = {}
 def all_tasks():
   return list(tasks.values())
 
-@app.get("/tasks/{_id}")
-def one_task(task_id):
-  return tasks[task_id]
+@app.get("/tasks/{task_id}")
+def one_task(task_id: int):
+  return tasks.get(task_id)
 
 @app.post("/tasks")
 def new_task(Title: str, Description: str):
@@ -30,7 +30,7 @@ def edit_task(task_id: int, Title: str, Description: str):
   return tasks[task_id]
 
 @app.delete("/tasks/{task_id}")
-def delete_task(task_id):
+def delete_task(task_id: int):
   del tasks[task_id]
   return None
 
